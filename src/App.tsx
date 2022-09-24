@@ -1,14 +1,13 @@
-import React from 'react';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from 'react'; 
+
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './routes/index';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Counter />
-      </header>
-    </div>
+    <BrowserRouter>
+        <Routes />
+    </BrowserRouter>
   );
 }
 

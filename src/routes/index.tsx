@@ -9,14 +9,12 @@ const Router = () => {
       {routes.map((routeItem) => {
           console.log(routeItem)
           return (
-            <>
-              <Route
-                  key={routeItem.component}
-                  path={routeItem.path}
-                  exact={routeItem.exact}
-                  component={lazy(() => import(`../pages/${routeItem.component}`))}
-              />
-            </>
+            <Route
+                key={routeItem.component}
+                path={routeItem.path}
+                // exact={routeItem.exact}
+                component={lazy(() => import(`../pages/${routeItem.component}`))}
+            />
           );
       })}
       </Switch>

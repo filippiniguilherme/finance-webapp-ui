@@ -1,8 +1,13 @@
 const routes = [
     {
-      path: ["/home"],
-      exact: true,
-      component: "PageCounter",
+      path: ['/counter'],
+      exact: false,
+      component: 'PageCounter',
+    },
+    {
+      path: ['/dashboard'],
+      exact: false,
+      component: 'PageDashboard',
     },
   ];
   

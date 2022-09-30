@@ -5,11 +5,15 @@ import { api } from '../services/api';
 
 export interface BalanceState {
     value: {
+        debitDetail: {
+            totalDebits: number,
+            countDebits: number
+        },
+        entryDetail: {
+            totalEntries: number,
+            countEntries: number
+        },
         balanceValue: number,
-        totalDebits: number,
-        countDebits: number,
-        totalEntries: number,
-        countEntries: number,
         month: number,
         year: number
     }
@@ -18,11 +22,15 @@ export interface BalanceState {
 
 const initialState: BalanceState = {
     value: {
+        debitDetail: {
+            totalDebits: 0,
+            countDebits: 0
+        },
+        entryDetail: {
+            totalEntries: 0,
+            countEntries: 0
+        },
         balanceValue: 0,
-        totalDebits: 0,
-        countDebits: 0,
-        totalEntries: 0,
-        countEntries: 0,
         month: 0,
         year: 0
     },
@@ -38,7 +46,7 @@ export const handleBalance = createAsyncThunk(
     'balance',
     async () => {
         const response = await api
-            .get(`/balance/${moment().month()}/${moment().year()}`);
+            .get(`/balance/`);
         // The value we return becomes the `fulfilled` action payload
         return response.data;
     }

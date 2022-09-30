@@ -26,7 +26,7 @@ export function Summary() {
             {new Intl.NumberFormat('pt-BR', {
               style: 'currency',
               currency: 'BRL'
-            }).format(balance.totalEntries)}
+            }).format(balance.entryDetail.totalEntries)}
           </strong>
         </div>
 
@@ -36,11 +36,10 @@ export function Summary() {
             <img src={outcomeImg} alt="Ícone saídas" />
           </header>
           <strong>
-            {'- ' +
-              new Intl.NumberFormat('pt-BR', {
+            {new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
                 currency: 'BRL'
-              }).format(balance.totalDebits)}
+              }).format(balance.debitDetail.totalDebits)}
           </strong>
         </div>
 

@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../actions/counterSlice';
 import balanceReducer from '../actions/balanceSlice';
+import DebitReducer from '../actions/DebitsSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    balance: balanceReducer
+    balance: balanceReducer,
+    debit: DebitReducer
   },
 });
 

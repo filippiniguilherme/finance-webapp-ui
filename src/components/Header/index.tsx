@@ -1,19 +1,37 @@
+import { Modal } from '@mui/material'
+import { useState } from 'react'
+import { handleBalance } from '../../actions/balanceSlice'
+import { handleDebit } from '../../actions/DebitsSlice'
 import logoImg from '../../assets/logo.svg'
-import { Container, Content } from './styles'
+import { useAppDispatch } from '../../hooks/hooks'
+import { NewTransactionModal } from '../NewTransactionModal'
+import { Button, Container, Content } from './styles'
 
-interface HeaderProps {
-  onOpenNewTransactionModal: () => void
-}
+export function Header() {
+  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false)
+  const dispatch = useAppDispatch();
 
-export function Header({ onOpenNewTransactionModal }: HeaderProps) {
+  function handleOpenNewTransactionModal() {
+    setIsNewTransactionModalOpen(true)
+  }
+
+  function handleCloseNewTransactionModal() {
+    dispatch(handleDebit())
+    dispatch(handleBalance())
+    setIsNewTransactionModalOpen(false)
+  }
+
   return (
-    <Container>
+    <>
       <Content>
-        <img src={logoImg} alt="Logo dt money" />
-        <button type="button" onClick={onOpenNewTransactionModal}>
+        <Button type="button" onClick={handleOpenNewTransactionModal}>
           Nova transação
-        </button>
+        </Button>
       </Content>
-    </Container>
+      <NewTransactionModal
+        isOpen={isNewTransactionModalOpen}
+        onRequestClose={handleCloseNewTransactionModal}
+      />
+    </>
   )
 }

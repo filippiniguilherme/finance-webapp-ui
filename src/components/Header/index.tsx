@@ -24,7 +24,7 @@ export function Header() {
   return (
     <>
       <Content>
-        <Button type="button" onClick={handleOpenNewTransactionModal}>
+        <Button className="mt-12" type="button" onClick={handleOpenNewTransactionModal}>
           Nova transação
         </Button>
       </Content>

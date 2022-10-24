@@ -16,6 +16,7 @@ export function Dashboard() {
 
   return (
     <Container>
+      <h2 className="text-5xl font-bold leading-7 mt-12 text-white :truncate sm:tracking-tight flex content-center justify-center">Dashboard</h2>
       <Header  />
       <Summary />
       <DataTable title='Saídas' data={debits.debits}/>

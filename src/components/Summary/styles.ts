@@ -8,7 +8,6 @@ export const Content = styled.main`
   margin-top: 4.25rem;
 
   div {
-    background: var(--shape);
     color: var(--text-title);
 
     border-radius: 0.3125rem;

@@ -4,7 +4,7 @@ import { Content } from './styles';
 import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { Debit, handleDebit, selectDebit } from '../../actions/DebitsSlice';
+import { Author, Debit, handleDebit, selectDebit } from '../../actions/DebitsSlice';
 import moment from 'moment';
 
 const columns: GridColDef[] = [
@@ -18,8 +18,12 @@ const columns: GridColDef[] = [
   },  },
   { field: 'month', headerName: 'Mês', width: 90, headerClassName: 'HeaderTable' },
   { field: 'year', headerName: 'Ano', width: 90, headerClassName: 'HeaderTable' },
-  { field: 'authorId', headerName: 'Autor', width: 90, headerClassName: 'HeaderTable' },
-  { field: 'categoryId', headerName: 'Categoria', width: 90, headerClassName: 'HeaderTable' },
+  { field: 'author', headerName: 'Autor', width: 90, headerClassName: 'HeaderTable', valueGetter: (params) => {
+    return params.row.author.authorName
+  }},
+  { field: 'category', headerName: 'Categoria', width: 90, headerClassName: 'HeaderTable', valueGetter: (params) => {
+    return params.row.category.categoryName
+  }},
 ];
 
 interface DataTableProps {

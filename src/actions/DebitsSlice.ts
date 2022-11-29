@@ -17,6 +17,16 @@ export interface DebitsState {
     status: 'idle' | 'loading' | 'failed';
 }
 
+export type Author = {
+    authorName: string,
+    authorId: number
+}
+
+type Category = {
+    categoryName: string,
+    categoryId: number
+}
+
 export interface Debit {
     id: number,
     name: string,
@@ -24,8 +34,8 @@ export interface Debit {
     date: string,
     month: number,
     year: number,
-    authorId: number,
-    categoryId: number
+    author: Author,
+    category: Category
 }
 
 const initialState: DebitsState = {
@@ -42,8 +52,14 @@ const initialState: DebitsState = {
                 date: '',
                 month: 0,
                 year: 0,
-                authorId: 0,
-                categoryId: 0
+                author: {
+                    authorName: "",
+                    authorId: 0
+                },
+                category: {
+                    categoryName: "",
+                    categoryId: 0
+                }
             }
         ]
     },

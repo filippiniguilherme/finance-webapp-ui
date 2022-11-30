@@ -13,9 +13,9 @@ export const Container = styled.form`
   grid-template-areas: 
     "name value"
     "category author"
-    "month year"
+    "date month"
     "submit submit";
-  gap: 2rem;
+  gap: 1rem;
 
   .name {
     grid-area: name;
@@ -37,6 +37,10 @@ export const Container = styled.form`
     grid-area: author;
   }
 
+  .date {
+    grid-area: date;
+  }
+
   .month {
     grid-area: month;
   }
@@ -45,10 +49,10 @@ export const Container = styled.form`
     grid-area: year;
   }
 
-  background: var(--background);
+  // background: var(--background);
 
-  div: {
-    
+  .select {
+    background-color: #e7e9ee;
   }
 
   input {
@@ -70,6 +74,14 @@ export const Container = styled.form`
     }
   }
 
+  label {
+    color: var(--text-title);
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 0.3rem;
+  }
+
   button[type='submit'] {
     width: 100%;
 
@@ -81,7 +93,7 @@ export const Container = styled.form`
 
     background: var(--green);
 
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     padding: 1.25rem 0;
 
     transition: filter 0.2s;

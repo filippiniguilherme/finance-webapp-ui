@@ -4,7 +4,7 @@ import { Content } from './styles';
 import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { Author, Debit, handleDebit, selectDebit } from '../../actions/DebitsSlice';
+import { Debit, handleDebit, selectDebit } from '../../actions/DebitsSlice';
 import moment from 'moment';
 
 const columns: GridColDef[] = [

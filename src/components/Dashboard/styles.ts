@@ -1,8 +1,13 @@
 import styled from 'styled-components'
 
 export const Container = styled.main`
-  max-width: 1120px;
 
-  margin: 0 auto;
+  margin: 1rem 4rem;
   padding: 0 1rem;
+`
+
+export const DataTables = styled.div`
+  display: flex;
+  justify-content: space-between;
+  column-gap: 3rem;
 `

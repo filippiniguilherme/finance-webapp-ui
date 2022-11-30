@@ -81,6 +81,16 @@ export const handleEntry = createAsyncThunk(
     }
 );
 
+export const handleEntryByMonthAndYear = createAsyncThunk(
+    'entryByMonthAndYear',
+    async (params: {month: number, year: number}) => {
+        const response = await api
+            .get(`/entry/${params.month}/${params.year}`);
+        // The value we return becomes the `fulfilled` action payload
+        return response.data;
+    }
+);
+
 export const postEntry = async (entry: Entry) => {
     const response = await api
         .post(

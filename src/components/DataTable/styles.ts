@@ -5,6 +5,7 @@ export const Content = styled.main`
   // grid-template-columns: repeat(1, 1fr);
   // gap: 2rem;
 
+  flex-grow: 1;
 
   margin-top: 4.25rem;
 

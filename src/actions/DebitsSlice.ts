@@ -73,6 +73,16 @@ export const handleDebit = createAsyncThunk(
     }
 );
 
+export const handleDebitByMonthAndYear = createAsyncThunk(
+    'debitByMonthAndYear',
+    async (params: {month: number, year: number}) => {
+        const response = await api
+            .get(`/debit/${params.month}/${params.year}`);
+        // The value we return becomes the `fulfilled` action payload
+        return response.data;
+    }
+);
+
 export const postDebit = async (debit: Debit) => {
     const response = await api
         .post(

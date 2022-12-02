@@ -11,9 +11,6 @@ import { Content } from './styles'
 export function Summary() {
   const balance = useAppSelector(selectBalance)
   const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(handleBalance())
-  }, [])
   return (
     <>
       <Content>

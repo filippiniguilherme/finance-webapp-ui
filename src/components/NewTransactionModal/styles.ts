@@ -11,6 +11,7 @@ export const Title = styled.h2`
 export const Container = styled.form`
   display: grid;
   grid-template-areas: 
+    "transation transation"
     "name value"
     "category author"
     "date month"
@@ -19,6 +20,11 @@ export const Container = styled.form`
 
   .name {
     grid-area: name;
+  }
+
+  .transation { 
+    grid-area: transation;
+    display: contents;
   }
 
   .value {
@@ -111,39 +117,3 @@ export const TypeTransactionContainer = styled.div`
 
   margin: 1rem 0;
 `
-// interface RadioBoxProps {
-//   isActive: boolean
-//   activeColor: 'green' | 'red'
-// }
-
-const colors = {
-  green: '#33cc95',
-  red: '#e52e4d'
-}
-
-// export const RadioBox = styled.button<RadioBoxProps>`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-
-//   padding: 1.25rem 4.125rem;
-
-//   border: 1.5px solid #d7d7d7;
-//   border-radius: 0.3125rem;
-
-//   transition: border-color 0.2s;
-
-//   &:hover {
-//   }
-
-//   span {
-//     margin-left: 1rem;
-//     font-size: 1rem;
-//     color: var(--text-title);
-//   }
-
-//   img {
-//     width: 24px;
-//     height: 24px;
-//   }
-// `

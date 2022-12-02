@@ -1,12 +1,12 @@
 import Modal from 'react-modal'
-import { Component, FormEvent, ReactNode, useEffect, useState } from 'react'
+import React, { Component, FormEvent, ReactNode, useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 
 
 import closeImg from '../../assets/close.svg'
 import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
-import { FormControl, Input, InputLabel, MenuItem, Radio, Select, TextField } from '@mui/material'
+import { FormControl, FormControlLabel, Input, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@mui/material'
 
 import { Container, Title, TypeTransactionContainer } from './styles'
 import { Debit, postDebit } from '../../actions/DebitsSlice'
@@ -14,6 +14,8 @@ import moment from 'moment'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { Author, handleAuthor, selectAuthor } from '../../actions/AuthorSlice';
 import { Category, handleCategory, selectCategory } from '../../actions/CategorySlice';
+import { Entry, postEntry } from '../../actions/EntriesSlice';
+import { green, red } from '@mui/material/colors';
 
 interface NewTransactionModalProps {
   isOpen: boolean
@@ -25,7 +27,7 @@ export function NewTransactionModal({
   onRequestClose
 }: NewTransactionModalProps) {
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<Debit>();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<Debit | Entry>()
   const authors = useAppSelector(selectAuthor)
   const categories = useAppSelector(selectCategory)
   const dispatch = useAppDispatch()
@@ -35,23 +37,40 @@ export function NewTransactionModal({
     console.log(moment().format('DD/MM/YYYY'))
   }, [])
 
+  const [radioTransationValue, setRadioTransationValue] = React.useState('entry');
 
-  async function handleCreateNewTransaction(data: Debit) {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRadioTransationValue(event.target.value)
+  };
+
+  const controlProps = (item: string) => ({
+    checked: radioTransationValue === item,
+    onChange: handleChange,
+    value: item,
+    name: `radio-button-${item}`,
+    inputProps: { 'aria-label': item },
+  });
+
+  async function handleCreateNewTransaction(data: Debit | Entry) {
 
     const date = data.month.toString()
     data.month = Number(date.split('-')[1])
     data.year = Number(date.split('-')[0])
     
-    await postDebit(data)
-
-    console.log(data)
-
+    switch (radioTransationValue) {
+      case 'entry': 
+        await postEntry(data)
+      break;
+      case 'debit': 
+        await postDebit(data)
+      break;
+    }
     onRequestClose()
   }
 
   return (
     <Modal
-      style={{content: {padding: '2rem 3rem'}}}
+      style={{content: {padding: '2rem 3rem', zIndex: 5}}}
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       overlayClassName="react-modal-overlay"
@@ -67,6 +86,35 @@ export function NewTransactionModal({
 
       <Title>Cadastrar transação</Title>
       <Container onSubmit={handleSubmit(handleCreateNewTransaction)}>
+        <RadioGroup className='transation'>
+          <FormControlLabel
+            value='Entrada'
+            control={
+              <Radio {...controlProps('entry')} 
+                sx={{
+                  color: green['A400'],
+                  '&.Mui-checked': {
+                    color: green['A700'],
+                  },
+                }}
+              /> 
+            }
+            label='Entrada'
+          />
+          <FormControlLabel
+            value='Saída'
+            control={
+              <Radio {...controlProps('debit')} 
+                sx={{
+                  color: red[600],
+                  '&.Mui-checked': {
+                    color: red[700],
+                  },
+                }} 
+              /> }
+            label='Saída'
+          />
+        </RadioGroup>
 
         <div className='name'>
           <label>
@@ -97,7 +145,7 @@ export function NewTransactionModal({
 
         <FormControl className='category'>
           <label>Categoria</label>
-          <Select className='select' {...register("category.categoryId",{ required: true })}>
+          <Select className='select' {...register("category.categoryId",{ required: true })} defaultValue={categories[0].categoryId}>
             {categories.map(({categoryId, categoryName}, index) => (
               <MenuItem key={index} value={categoryId}>
                 {categoryName}
@@ -105,10 +153,9 @@ export function NewTransactionModal({
             ))}
           </Select>
         </FormControl>
-
         <FormControl className='author'>
           <label>Autor</label>
-          <Select className='select' {...register('author.authorId', { required: true})}>
+          <Select className='select' {...register('author.authorId', { required: true})} defaultValue={authors[0].authorId}>
             {authors.map(({authorId, authorName}, index) => (
               <MenuItem key={index} value={authorId}>
                 {authorName}

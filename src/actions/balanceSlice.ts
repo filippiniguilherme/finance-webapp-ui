@@ -52,6 +52,16 @@ export const handleBalance = createAsyncThunk(
     }
 );
 
+export const handleBalanceByMonthAndYear = createAsyncThunk(
+    'balanceByMonthAndYear',
+    async (params: {month: number, year: number}) => {
+        const response = await api
+            .get(`/balance/${params.month}/${params.year}`);
+        // The value we return becomes the `fulfilled` action payload
+        return response.data;
+    }
+);
+
 export const balanceSlice = createSlice({
     name: 'balance',
     initialState,
@@ -71,6 +81,16 @@ export const balanceSlice = createSlice({
                 state.value = action.payload;
             })
             .addCase(handleBalance.rejected, (state) => {
+                state.status = 'failed';
+            })
+            .addCase(handleBalanceByMonthAndYear.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(handleBalanceByMonthAndYear.fulfilled, (state, action) => {
+                state.status = 'idle';
+                state.value = action.payload;
+            })
+            .addCase(handleBalanceByMonthAndYear.rejected, (state) => {
                 state.status = 'failed';
             });
     },

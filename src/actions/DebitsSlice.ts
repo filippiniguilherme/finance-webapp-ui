@@ -112,6 +112,16 @@ export const debitSlice = createSlice({
             })
             .addCase(handleDebit.rejected, (state) => {
                 state.status = 'failed';
+            })
+            .addCase(handleDebitByMonthAndYear.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(handleDebitByMonthAndYear.fulfilled, (state, action) => {
+                state.status = 'idle';
+                state.value = action.payload;
+            })
+            .addCase(handleDebitByMonthAndYear.rejected, (state) => {
+                state.status = 'failed';
             });
     },
 });

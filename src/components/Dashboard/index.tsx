@@ -5,11 +5,12 @@ import { Header } from '../Header'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { useEffect } from 'react'
 import { handleDebit, handleDebitByMonthAndYear, selectDebit } from '../../actions/DebitsSlice'
-import { handleBalance } from '../../actions/balanceSlice'
+import { handleBalance, handleBalanceByMonthAndYear } from '../../actions/balanceSlice'
 import { handleEntry, handleEntryByMonthAndYear, selectEntry } from '../../actions/EntriesSlice'
 import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
 import moment from 'moment'
+import { Button } from '@mui/material'
 
 export function Dashboard() {
   const debits = useAppSelector(selectDebit)
@@ -22,6 +23,7 @@ export function Dashboard() {
   useEffect(() => {
     dispatch(handleDebitByMonthAndYear(params))
     dispatch(handleEntryByMonthAndYear(params))
+    dispatch(handleBalanceByMonthAndYear(params))
   }, [])
 
   return (

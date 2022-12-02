@@ -120,6 +120,16 @@ export const entrySlice = createSlice({
             })
             .addCase(handleEntry.rejected, (state) => {
                 state.status = 'failed';
+            })
+            .addCase(handleEntryByMonthAndYear.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(handleEntryByMonthAndYear.fulfilled, (state, action) => {
+                state.status = 'idle';
+                state.value = action.payload;
+            })
+            .addCase(handleEntryByMonthAndYear.rejected, (state) => {
+                state.status = 'failed';
             });
     },
 });
